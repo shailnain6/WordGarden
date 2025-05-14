@@ -8,14 +8,56 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var wordGuessed = 0
+    @State private var wordMissed = 0
+    @State private var wordToGuess = ["SWIFT", "DOG", "CAT"]
+    @State private var gameStatusMessage = "How Many Guesses to Uncover the Hidden Word?"
+    @State private var currentWord = 0
+    @State private var guessedLetter = ""
+    @State private var imageName = "flower8"
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Word Guessed: \(wordGuessed)")
+                    Text("Word Missed: \(wordMissed)")
+                }
+                Spacer()
+                VStack(alignment: .leading) {
+                    Text("Word to Guess: \(wordToGuess.count - (wordGuessed + wordMissed))")
+                    Text("Word in Game: \(wordToGuess.count)")
+                }
+            }
+            .padding()
+            Spacer()
+            Text(gameStatusMessage)
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Text("_ _ _ _ _")
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+            HStack {
+                TextField("", text: $guessedLetter)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 30)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray, lineWidth: 2)
+                }
+                Button("Guess a Letter:") {
+                    //                TODO: Guess a letter button action here
+                }
+                .buttonStyle(.bordered)
+                .tint(.green)
+                .fontWeight(.bold)
+            }
+            Spacer()
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
         }
-        .padding()
+        .ignoresSafeArea(edges: .bottom)
     }
 }
 
